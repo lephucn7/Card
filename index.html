@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday 💖</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  overflow:hidden;
+  height:100vh;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff5f9e,#ffc371);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* background glow */
+body::before{
+  content:"";
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:rgba(255,255,255,0.15);
+  border-radius:50%;
+  filter:blur(100px);
+  top:-200px;
+  left:-100px;
+}
+
+/* stars */
+.star{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  animation:blink 2s infinite;
+}
+
+@keyframes blink{
+  0%,100%{
+    opacity:0.2;
+  }
+  50%{
+    opacity:1;
+  }
+}
+
+.card{
+  width:90%;
+  max-width:900px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:30px;
+  padding:40px;
+  text-align:center;
+  color:white;
+  z-index:10;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
+}
+
+h1{
+  font-size:58px;
+  margin-bottom:10px;
+  text-shadow:0 0 20px rgba(255,255,255,0.5);
+}
+
+.subtitle{
+  font-size:22px;
+  opacity:0.95;
+  margin-bottom:25px;
+}
+
+/* FILM */
+
+.film-container{
+  width:100%;
+  overflow:hidden;
+  margin:25px 0;
+  border-radius:20px;
+
+  opacity:0;
+  transform:scale(0.9);
+
+  max-height:0;
+}
+
+.film-container.show-film{
+  opacity:1;
+  transform:scale(1);
+  transition:1s;
+
+  max-height:500px;
+}
+
+.film-container::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.04) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+
+  pointer-events:none;
+  z-index:5;
+}
+
+.film-strip{
+  display:flex;
+  gap:20px;
+  width:max-content;
+
+  animation:filmRun 18s linear infinite;
+}
+
+.film-strip img{
+  width:220px;
+  height:320px;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  border:5px solid rgba(255,255,255,0.7);
+
+  filter:
+    sepia(0.25)
+    contrast(1.1)
+    brightness(0.95);
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.35);
+
+  transition:0.4s;
+}
+
+.film-strip img:hover{
+  transform:scale(1.05);
+}
+
+@keyframes filmRun{
+
+  0%{
+    transform:translateX(0);
+  }
+
+  100%{
+    transform:translateX(-50%);
+  }
+}
+
+/* MESSAGE */
+
+.message{
+  font-size:18px;
+  line-height:1.8;
+  margin-top:25px;
+
+  opacity:0;
+  transform:translateY(20px);
+}
+
+.show{
+  opacity:1;
+  transform:translateY(0);
+  transition:1s;
+}
+
+/* BUTTON */
+
+button{
+  margin-top:30px;
+
+  border:none;
+  padding:16px 35px;
+  border-radius:999px;
+
+  font-size:18px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  background:white;
+  color:#ff4081;
+
+  transition:0.3s;
+
+  box-shadow:0 5px 20px rgba(255,255,255,0.3);
+}
+
+button:hover{
+  transform:scale(1.08);
+}
+
+/* HEARTS */
+
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation:fall linear forwards;
+  user-select:none;
+}
+
+@keyframes fall{
+  from{
+    transform:translateY(-10vh) rotate(0deg);
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+.music{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  color:white;
+  font-size:14px;
+  opacity:0.8;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:768px){
+
+  h1{
+    font-size:38px;
+  }
+
+  .film-strip img{
+    width:160px;
+    height:240px;
+  }
+
+  .subtitle{
+    font-size:18px;
+  }
+
+  .message{
+    font-size:16px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- STARS -->
+
+<script>
+
+for(let i=0;i<80;i++){
+
+  const star=document.createElement("div");
+
+  star.classList.add("star");
+
+  star.style.left=Math.random()*100+"vw";
+
+  star.style.top=Math.random()*100+"vh";
+
+  star.style.animationDuration=
+    (Math.random()*3+1)+"s";
+
+  document.body.appendChild(star);
+}
+
+</script>
+
+<div class="card">
+
+  <h1>🎂 Happy Birthday 🎂</h1>
+
+  <div class="subtitle">
+    Gửi đến người đặc biệt nhất hôm nay 💖
+  </div>
+
+  <!-- FILM -->
+
+  <div class="film-container hidden" id="film">
+
+    <div class="film-strip">
+
+      <!-- THAY ẢNH -->
+      <img src="https://picsum.photos/id/1011/500/700">
+      <img src="https://picsum.photos/id/1025/500/700">
+      <img src="https://picsum.photos/id/1035/500/700">
+      <img src="https://picsum.photos/id/1043/500/700">
+      <img src="https://picsum.photos/id/1062/500/700">
+
+      <!-- duplicate để chạy mượt -->
+      <img src="https://picsum.photos/id/1011/500/700">
+      <img src="https://picsum.photos/id/1025/500/700">
+      <img src="https://picsum.photos/id/1035/500/700">
+      <img src="https://picsum.photos/id/1043/500/700">
+      <img src="https://picsum.photos/id/1062/500/700">
+
+    </div>
+
+  </div>
+
+  <!-- MESSAGE -->
+
+  <div class="message hidden" id="message">
+
+    Chúc bạn luôn vui vẻ, hạnh phúc ✨
+    <br><br>
+
+    Mong rằng tuổi mới sẽ mang đến
+    thật nhiều điều tuyệt vời 🎉
+
+    <br><br>
+
+    Cảm ơn vì đã xuất hiện trong cuộc đời này 💖
+
+  </div>
+
+  <button id="btn">
+    Mở lời chúc ✨
+  </button>
+
+</div>
+
+<div class="music">
+  🎵 Happy Birthday
+</div>
+
+<script>
+
+const btn=document.getElementById("btn");
+
+const message=document.getElementById("message");
+
+const film=document.getElementById("film");
+
+btn.addEventListener("click",()=>{
+
+  message.classList.remove("hidden");
+
+  film.classList.remove("hidden");
+
+  setTimeout(()=>{
+
+    message.classList.add("show");
+
+    film.classList.add("show-film");
+
+  },100);
+
+  btn.innerHTML="🎬 Ký ức bắt đầu 🎬";
+
+  for(let i=0;i<100;i++){
+    createHeart();
+  }
+});
+
+function createHeart(){
+
+  const heart=document.createElement("div");
+
+  const icons=["💖","✨","🎉","💗","🎂"];
+
+  heart.innerHTML=
+    icons[Math.floor(Math.random()*icons.length)];
+
+  heart.classList.add("heart");
+
+  heart.style.left=Math.random()*100+"vw";
+
+  heart.style.animationDuration=
+    (Math.random()*3+2)+"s";
+
+  heart.style.fontSize=
+    (Math.random()*25+15)+"px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },5000);
+}
+
+</script>
+
+</body>
+</html>

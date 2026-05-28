@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff5f9e, #ffc371);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+}
+
+/* Background glow */
+body::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  filter: blur(100px);
+  top: -200px;
+  left: -100px;
+  z-index: -1;
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: blink 2s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* Card */
+.card {
+  width: 90%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 40px 25px;
+  text-align: center;
+  color: white;
+  z-index: 10;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: float 4s ease-in-out infinite;
+  overflow: hidden;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+h1 {
+  font-size: 58px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 22px;
+  opacity: 0.95;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+/* Film Container */
+.film-container {
+  width: 100%;
+  overflow: hidden;
+  margin: 30px 0;
+  border-radius: 20px;
+  position: relative;
+  height: 0;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease, height 0.6s ease;
+}
+
+.film-container.show-film {
+  opacity: 1;
+  transform: scale(1);
+  height: 340px;
+}
+
+.film-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  border-radius: 20px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.film-strip {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  padding: 10px;
+  animation: filmRun 18s linear infinite;
+}
+
+.film-strip img {
+  width: 180px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  filter: sepia(0.2) contrast(1.1) brightness(0.95);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.film-strip img:hover {
+  transform: scale(1.06);
+}
+
+@keyframes filmRun {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Message */
+.message {
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 25px 0 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button */
+button {
+  margin-top: 20px;
+  border: none;
+  padding: 16px 35px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: white;
+  color: #ff4081;
+  transition: 0.3s ease;
+  box-shadow: 0 5px 25px rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.5px;
+}
+
+button:hover,
+button:focus {
+  transform: scale(1.08);
+  outline: none;
+}
+
+button:active {
+  transform: scale(1.05);
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  opacity: 0;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Music badge */
+.music {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  opacity: 0.7;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 38px;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .film-strip img {
+    width: 140px;
+    height: 220px;
+    border-width: 3px;
+  }
+
+  .film-container {
+    margin: 25px 0;
+  }
+
+  .message {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 20px 0;
+  }
+
+  button {
+    padding: 14px 30px;
+    font-size: 17px;
+  }
+
+  .card {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-height: 600px) {
+  .card {
+    padding: 20px;
+    transform: scale(0.9);
+  }
+}
